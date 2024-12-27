@@ -1,0 +1,30 @@
+body{
+    background-color: aquamarine;
+    color: blue;
+    text-align: center;
+    align-items: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.text-24px{
+    font-size: 24px;
+}
+
+.text-bold{
+    font-weight: bold;
+}
+
+.picture{
+    width: 20%;
+}
+
+.round{
+    border-radius: 10px;
+}
+
+.container{
+    margin-left: 25%;
+    margin-right: 25%;
+    border-width: 10px;
+    border-radius: 50px;
+}
