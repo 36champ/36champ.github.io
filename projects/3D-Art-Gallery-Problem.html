@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <title>3D Art Gallery Problem</title>
+    </head>
+
+    <body>
+        <div id="nav-placeholder"></div>
+        <div class="d-grid container-fluid">
+            <div class="row">
+                <div class="text-bold text-36px text-center">3D Art Gallery Problem</div>
+            </div>
+            <div class="row py-2 align-items-center">
+                <div class="col">
+                    <image src="../asset/projects/3D-Art-Gallery-Problem/Ray-Mesh-Inersection.png" class="img-fluid p-4"></image>
+                </div>
+                <div class="col-8 px-4">
+                    3D Art Gallery Problem is an extension of a classic 2D Art Gallery Problem which is an optimization problem on where to place the minimum number of guards inside the 2D shape so that every points in the shape is visible by at least one guard.<br>
+                    In this project, we aim to tackle this problem in 3D space: Given a 3D Mesh, what is the smallest number of guards that we have to place inside the mesh so that every faces of the mesh is visible to at least one guard.
+                </div>
+            </div>
+            <div class="row py-2 align-items-center">
+                <div class="col-6 px-4">
+                    The initial idea is that we should put the guards on the "skeleton" of the mesh. Then, we sample points from the skeleton to be candidate points in which we can put a guard there.<br>
+                    The first step of the project is now split into 2 parts: skeletonize the mesh and handling point visibility.
+                </div>
+                <div class="col">
+                    <image src="../asset/projects/3D-Art-Gallery-Problem/Skeleton-Visulaization.png" class="img-fluid p-4"></image>
+                </div>
+                <div class="col">
+                    <image src="../asset/projects/3D-Art-Gallery-Problem/Skeleton-Points-Sampling.png" class="img-fluid p-4"></image>
+                </div>
+            </div>
+            <div class="row py-2 align-items-center"> 
+                <div class="col">
+                    <image src="../asset/projects/3D-Art-Gallery-Problem/Point-Visibility.png" class="img-fluid p-4"></image>
+                </div>
+                <div class="col-8 px-4">
+                    I mainly work on the visulaization part of the project with polyscope.<br>
+                    To handle the point visibility, the very simple idea is that we can draw a lot of rays out of the guard to see which triangle the ray intersects with.<br>
+                    We have experimented with a few way to sample rays such as, uniformly random, slicing and stacking of a sphere, and utilizing a Fibonacci sphere.<br>
+                    It turns out that the code for point visibility is already existed on gpytoolbox, so we ended up using that in the end.
+                </div>
+            </div>
+            <div class="row py-2 align-items-center"> 
+                <div class="col-8 px-4">
+                    Next, we have to combine the skeleton with the point visibility to determine where we should put a guard.<br>
+                    First, we sampling points from the skeleton and the repeatedly choose the point that cover the most numbers of unseen triangles until every triangle is covered or no more additional triangle can be covered.<br>
+                    Then, we remove unnecessary guards that no longer see any triangles. (All of their triangle is already covered by other guards.)
+                </div>
+                <div class="col">
+                    <image src="../asset/projects/3D-Art-Gallery-Problem/Final-Product.png" class="img-fluid p-4"></image>
+                </div>
+            </div>
+            <div class="row py-2 align-items-center"> 
+                <div class="col">
+                    <image src="../asset/projects/3D-Art-Gallery-Problem/Final-Edition.png" class="img-fluid p-4"></image>
+                </div>
+                <div class="col-8 px-4">
+                    In the previous part, it is mentioned that we choose a point until every triangle is covered or no more additional triangle can be covered.<br>
+                    The problem is that our assumption that if we only choose points from the skeleton, we will eventually be able to cover the whole mesh is wrong. Some meshes can't be fully covered using only points on the skeleton.<br>
+                    Since we are running out of time, the quick fix that we decide to go with is just by sampling more points inside the mesh in addition to points from the skeleton.<br>
+                    Despite not being the best solution, this method proved to be better than just using the skeleton by finding the way to place less guards than the former method but taking longer time.
+                </div>
+            </div>
+            <div class="row pt-2 pb-4 text-center text-24px"> 
+                <a href="https://summergeometry.org/sgi2024/the-3d-art-gallery-problem/">Additional Information and Results</a>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script src="../scripts/nav2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

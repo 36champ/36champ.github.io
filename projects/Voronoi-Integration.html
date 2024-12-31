@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+        <title>High-dimensional integration with Voronoi Piecewise Surrogates</title>
+    </head>
+
+    <body>
+        <div id="nav-placeholder"></div>
+        <div class="d-grid container-fluid">
+            <div class="row">
+                <div class="text-bold text-36px text-center">High-dimensional integration with Voronoi Piecewise Surrogates</div>
+            </div>
+            <div class="row text-bold text-24px text-center">
+                <a href="https://summergeometry.org/sgi2024/voronoi-tessellations/">Overview of the Project</a>
+            </div>
+            <div class="row py-2 align-items-center">
+                <div class="col">
+                    <image src="../asset/projects/Voronoi-Integration/bw_small.gif" class="img-fluid p-4"></image>
+                </div>
+                <div class="col-8 px-4">
+                    <div class="text-24px text-bold text-center">Bowyer-Watson Algorithm</div>
+                    Bowyer-Watson algorithm is an algorithm to create the Delaunay triangulation from the
+                    finite amount of source points regardless to the number of dimensions. This section aims
+                    to explain the main idea of how the algorithm works.
+                    <div class="text-bold">Delaunay Triangulation</div>
+                    In \(2D\), Delaunay triangulation refers to a way to connects each source point in the way
+                    that all regions are triangles and no circumcircle of any triangle contains more than \(3\)
+                    source points.
+                    <div class="text-bold">Starting from \(2D\)</div>
+                    The algorithm starts off by defining a super-triangle that's big enough to contains all
+                    source points. Then, for each source point we remove all triangles that their circumcircles
+                    contain a newly added source point. We then will have a hole that isn't triangulated and
+                    we can triangulate it by using a newly added point. After that, we delete all triangles
+                    that contains a vertex from the super-triangle.
+                    High-dimensional integration with Voronoi Piecewise Surrogates
+                    <div class="text-bold">Higher Dimension</div>
+                    In a higher dimension, a triangle is not just a triangle any more. For example, in \(3D\), a
+                    triangle becomes a tetrahedron. In \(d\) dimensions, a triangle will have \(d + 1\) vertices.
+                    <div class="text-bold">Some Tips</div>
+                    <ul>
+                        <li>Finding the circumcenter of a triangle can be solved using linear algebra.</li>
+                        <li>When patching a hole, you will already have d points in the edges of the hole, justadd the source point in.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row py-2 align-items-center"> 
+                <div class="col-8 px-4">
+                    <div class="text-24px text-bold text-center">How to estimate the area of each Voronoi cell without finding its exact shape</div>
+                    <div class="text-bold">Proposed Algorithm</div>
+                    Let's define the problem first. Given a set of \(n\) points from \([0, 1]^d\), what is the area of
+                    each Voronoi cell centered at each point in the set?<br>
+                    By definition, Voronoi diagram of a set of \(n\) source points partitions the domain
+                    space into \(n\) regions (which is called cell) such that each point is the region is closer to
+                    the source of the region than any other sources.<br>
+                    High-dimensional integration with Voronoi Piecewise Surrogates
+                    After knowing the definition, how could one exploit this fact to quickly estimate the
+                    area of each Voronoi cells.<br>
+                    Using Monte Carlo method, we first take \(k\) samples from our domain. For each point
+                    that we sampled, we can quickly find which source point is closet to our sampled point,
+                    and then, we add \(1/k\) to the area of that Voronoi cell.
+                    <div class="text-bold">Pros</div>
+                    <ul>
+                        <li>Very fast, since we don't need to compute the Voronoi diagram.</li>
+                        <li>The sum of areas is guaranteed to be \(1\).</li>
+                        <li>Doesn't need to sample more points as the number of dimensions grows.</li>
+                    </ul>
+                    <div class="text-bold">Cons</div>
+                    <ul>
+                        <li>This is just the estimation of the area.</li>
+                        <li>Voronoi cells may have zero areas.</li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <image src="../asset/projects/Voronoi-Integration/bw_big.gif" class="img-fluid p-4"></image>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script src="../scripts/nav2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
