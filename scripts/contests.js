@@ -12,9 +12,9 @@ let contest_data = [
         'link' : '#'
     },
     {
-        'name' : 'High-dimensional integration with Voronoi Piecewise Surrogates',
-        'desc' : 'Monte Carlo Integration with a Voronoi Twist<br>My Third Group contest with SGI 2024',
-        'img' : '../asset/placeholder.png',
+        'name' : 'Other Competition',
+        'desc' : 'Some contests I have joined throughout the years such as IEEExtreme, EOlymp Cup, and more',
+        'img' : '../asset/Placeholder.png',
         'link' : '#'
     },
 ]
